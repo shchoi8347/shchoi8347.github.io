@@ -1,0 +1,47 @@
+1:"$Sreact.fragment"
+2:I[22016,["/_next/static/chunks/36dfaa66f4c61695.js"],""]
+4:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+5:"$Sreact.suspense"
+3:T750,<h1>Next.js App Router로 정적 블로그 만들기</h1>
+<h2>왜 Next.js인가?</h2>
+<p>정적 사이트 생성(SSG)에는 여러 선택지가 있습니다. Gatsby, Hugo, Jekyll 등등... 그 중에서 Next.js를 선택한 이유는:</p>
+<ul>
+<li><strong>React 생태계</strong> 활용 가능</li>
+<li><strong>App Router</strong>의 간결한 구조</li>
+<li><strong>TypeScript</strong> 기본 지원</li>
+<li>활발한 커뮤니티</li>
+</ul>
+<h2>핵심 설정: Static Export</h2>
+<pre><code class="language-typescript">// next.config.ts
+const nextConfig: NextConfig = {
+  output: "export",       // 정적 파일 생성
+  trailingSlash: true,    // GitHub Pages 라우팅 호환
+  images: {
+    unoptimized: true,    // 이미지 최적화 비활성화 (정적 빌드용)
+  },
+};
+</code></pre>
+<h2>Markdown 파싱 구조</h2>
+<p><code>gray-matter</code>로 frontmatter를 파싱하고, <code>remark</code>로 HTML로 변환합니다:</p>
+<pre><code class="language-typescript">import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
+
+const { data, content } = matter(fileContents);
+const processedContent = await remark().use(html).process(content);
+const contentHtml = processedContent.toString();
+</code></pre>
+<h2>파일 구조</h2>
+<p>포스트는 <code>posts/YYYY/MM/slug.md</code> 형식으로 관리합니다:</p>
+<pre><code>posts/
+└── 2026/
+    └── 03/
+        ├── hello-world.md
+        └── nextjs-static-blog.md
+</code></pre>
+<h2>GitHub Actions 자동 배포</h2>
+<p><code>main</code> 브랜치에 push하면 자동으로 빌드 및 배포됩니다. 설정은 <code>.github/workflows/deploy.yml</code>을 참고하세요.</p>
+<hr>
+<p>다음 포스트에서는 <strong>댓글 기능 추가</strong>와 <strong>SEO 최적화</strong>에 대해 다뤄보겠습니다. 👋</p>
+0:{"buildId":"yFdail49UqAkjT38xj0o2","rsc":["$","$1","c",{"children":[["$","article",null,{"className":"max-w-2xl mx-auto","children":[["$","$L2",null,{"href":"/blog","className":"inline-flex items-center gap-1 text-sm text-indigo-600 hover:underline mb-8","children":"← 목록으로"}],["$","header",null,{"className":"mb-8","children":[["$","div",null,{"className":"flex flex-wrap gap-2 mb-3","children":[["$","$L2","개발",{"href":"/categories/%EA%B0%9C%EB%B0%9C","className":"text-xs font-semibold bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full hover:bg-indigo-100","children":"개발"}],["$","$L2","튜토리얼",{"href":"/categories/%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC","className":"text-xs font-semibold bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-full hover:bg-indigo-100","children":"튜토리얼"}]]}],["$","h1",null,{"className":"text-3xl font-extrabold text-gray-900 leading-tight mb-3","children":"Next.js App Router로 정적 블로그 만들기"}],["$","p",null,{"className":"text-gray-500 text-lg mb-4","children":"Next.js 15 App Router와 Markdown을 활용해 GitHub Pages에 배포하는 정적 블로그를 만드는 방법을 소개합니다."}],["$","div",null,{"className":"flex items-center justify-between","children":[["$","div",null,{"className":"flex flex-wrap gap-1.5","children":[["$","$L2","next.js",{"href":"/tags/next.js","className":"text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full hover:bg-gray-200","children":["#","next.js"]}],["$","$L2","react",{"href":"/tags/react","className":"text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full hover:bg-gray-200","children":["#","react"]}],["$","$L2","typescript",{"href":"/tags/typescript","className":"text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full hover:bg-gray-200","children":["#","typescript"]}],["$","$L2","github-pages",{"href":"/tags/github-pages","className":"text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full hover:bg-gray-200","children":["#","github-pages"]}]]}],["$","time",null,{"className":"text-sm text-gray-400","children":"Wed Mar 04"}]]}]]}],["$","div",null,{"className":"prose prose-indigo max-w-none","dangerouslySetInnerHTML":{"__html":"$3"}}]]}],null,["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"loading":null,"isPartial":false}
+6:null
